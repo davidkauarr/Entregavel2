@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Algoritmos Fundamentais</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="page">
+        <span>.</span>
+        <h1>Algoritmos</h1>
+        <main>
+        <button onclick="getElementById('p1').innerHTML=numeroPrimo()">Número primo</button>
+        <p id='p1'></p>
+        <button onclick="getElementById('p2').innerHTML=somatorio()">Somatório</button>
+        <p id='p2'></p>
+        <button onclick="getElementById('p3').innerHTML=fibonacci()">Fibonacci</button>
+        <p id="p3"></p>
+        <button onclick="getElementById('p4').innerHTML=mdc()">Máximo divisor comum</button>
+        <p id="p4"></p>
+        <button onclick="getElementById('p5').innerHTML=ordenacao()">Ordenação</button>
+        <p id="p5"></p>
+        <button onclick="getElementById('p6').innerHTML=contagem()">Contagem</button>
+        <p id="p6"></p>
+        </main>
+    </div>
+</body>
+<script>
+    function numeroPrimo() {
+
+        var numero = parseInt(prompt("Digite um número:"));
+        var cont = 0;
+
+        for (var i = 2; i < numero; i++) {
+            if (numero % i == 0) {
+                cont++;
+            }
+        }
+
+        if (cont == 0) {
+            return `${numero} é primo.`;
+        } else {
+            return `${numero} não é primo.`;
+        }
+    }
+
+    function somatorio() {
+        var n = parseInt(prompt("Digite a quantidade de números:"));
+        var soma = 0;
+        var numero;
+
+        for (var i = 0; i < n; i++) {
+            numero = Number(prompt("Digite um número"));
+            soma += numero;
+        }
+
+        return `A soma dos ${n} números é ${soma}`;
+    }
+
+    function fibonacci() {
+        var quantidade_termos = prompt('Quantos termos da sequência de Fibonacci você deseja exibir?')
+        var t1 = 0;
+        var t2 = 1;
+        var t3;
+
+        if (quantidade_termos <= 0) {
+            return `{}`;
+        } else if (quantidade_termos == 1) {
+            return `0`;
+        } else if (quantidade_termos == 2) {
+            return `0, 1`;
+        }
+
+        var numeros = [0, 1];
+        for (var i = 2; i < quantidade_termos; i++) {
+            t3 = t1 + t2;
+            t1 = t2;
+            t2 = t3;
+            numeros.push(t3);
+        }
+
+        return `${numeros}`;
+    }
+
+    function mdc() {
+        let numero_1 = parseInt(prompt('Digite o primeiro número:'));
+        let numero_2 = parseInt(prompt('Digite o segundo número:'));
+        let valor_MDC = 0;
+
+        for (var i = numero_1; i > 0; i--) {
+            if (numero_1 % i == 0 && numero_2 % i == 0) {
+                valor_MDC = i;
+                break;
+            }
+        }
+        return `O MDC de ${numero_1} e ${numero_2} é ${valor_MDC}`;
+    }
+
+    function ordenacao() {
+        let qt_valores = prompt("Digite a quantidade de valores que voce deseja ordenar");
+        let valor_recebido;
+        let vetor = [];
+        for (let i = 1; i <= qt_valores; i++) {
+            valor_recebido = parseInt(prompt("Digite o " + i + "º valor:"));
+            vetor.push(valor_recebido);
+        }
+
+        let resultado = quickSort(vetor, 0, vetor.length - 1);
+
+        function quickSort(vetor, esquerda, direita) {
+            let i = esquerda;
+            let j = direita;
+            let meio = Math.floor((i + j) / 2);
+
+            while (i <= j) {
+                while (vetor[i] < vetor[meio]) {
+                    i++;
+                }
+
+                while (vetor[j] > vetor[meio]) {
+                    j--;
+                }
+
+                if (i <= j) {
+                    let temp = vetor[i];
+                    vetor[i] = vetor[j];
+                    vetor[j] = temp;
+                    i++;
+                    j--;
+                }
+            }
+
+            let index = i;
+
+            if (index - 1 > esquerda) {
+                quickSort(vetor, esquerda, index - 1);
+            }
+
+            if (index < direita) {
+                quickSort(vetor, index, direita);
+            }
+            return vetor;
+        }
+
+        vetor = [];
+        return resultado;
+    }
+
+    function contagem() {
+        var n = prompt("Informe a quantidade notas:");
+        var nota;
+        var cont = 0;
+
+        for (var i = 0; i < n; i++) {
+            nota = parseInt(prompt("Digite uma nota entre 0 e 100:"));
+
+            if (nota >= 50) {
+                cont++;
+            }
+        }
+
+        return `Quantidade de notas maiores do que 50 é de ${cont}`;
+    }
+</script>
+
+</html>
